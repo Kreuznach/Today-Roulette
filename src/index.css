@@ -1,0 +1,189 @@
+/* ── 리셋 & 기본 ─────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family:
+    -apple-system,
+    'Apple SD Gothic Neo',
+    'Noto Sans KR',
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+  background: #f2f4f6;
+  color: #191f28;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+}
+
+#root {
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+}
+
+/* ── 디자인 토큰 ──────────────────────────────────── */
+
+:root {
+  --color-primary: #3182f6;
+  --color-primary-light: #ebf3ff;
+  --color-bg: #f2f4f6;
+  --color-surface: #ffffff;
+  --color-text-primary: #191f28;
+  --color-text-secondary: #6b7684;
+  --color-text-tertiary: #b0b8c1;
+  --color-border: #e5e8eb;
+  --color-success: #00b493;
+  --color-warning: #f5a623;
+  --color-error: #f04452;
+
+  /* Safe Area */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ── 레이아웃 ─────────────────────────────────────── */
+
+.page-container {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100dvh;
+  background: #f2f4f6;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-content {
+  flex: 1;
+  padding: calc(var(--safe-top) + 20px) 20px calc(var(--safe-bottom) + 32px);
+}
+
+/* ── 공통 컴포넌트 ───────────────────────────────── */
+
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+.app-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #191f28;
+  letter-spacing: -0.6px;
+  margin-bottom: 6px;
+}
+
+.app-subtitle {
+  font-size: 15px;
+  color: #6b7684;
+  line-height: 1.5;
+}
+
+/* ── 버튼 ────────────────────────────────────────── */
+
+.btn-primary {
+  display: block;
+  width: 100%;
+  padding: 16px 24px;
+  background: var(--color-primary);
+  color: #ffffff;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: -0.3px;
+  transition: transform 0.1s, opacity 0.15s;
+  WebkitTapHighlightColor: transparent;
+  box-shadow: 0 4px 12px rgba(49, 130, 246, 0.3);
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+}
+
+.btn-primary:disabled {
+  background: #b0b8c1;
+  box-shadow: none;
+  cursor: default;
+}
+
+.btn-secondary {
+  display: block;
+  width: 100%;
+  padding: 15px 24px;
+  background: #ffffff;
+  color: #3182f6;
+  border: 1.5px solid #3182f6;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: -0.3px;
+  transition: transform 0.1s, background 0.15s;
+  WebkitTapHighlightColor: transparent;
+}
+
+.btn-secondary:active {
+  transform: scale(0.97);
+  background: var(--color-primary-light);
+}
+
+.btn-ghost {
+  display: block;
+  padding: 14px 24px;
+  background: transparent;
+  color: #6b7684;
+  border: 1.5px solid #e5e8eb;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  letter-spacing: -0.2px;
+  transition: transform 0.1s;
+  WebkitTapHighlightColor: transparent;
+}
+
+.btn-ghost:active {
+  transform: scale(0.97);
+}
+
+/* ── 애니메이션 ──────────────────────────────────── */
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-content > * {
+  animation: fadeIn 0.25s ease-out;
+}
