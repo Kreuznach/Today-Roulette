@@ -19,17 +19,12 @@
          ┌──────┴──────┐
          │ 취소          │ 광고 보기
          ↓              ↓
-     [원래 결과 유지]  prepareAd()
+     [원래 결과 유지]  startAd()  ← watchAd() 내부: load → show
                         │
                   ┌─────┴─────┐
-                  │ 실패        │ 성공 (loaded)
+                  │ false       │ true (보상 획득)
                   ↓            ↓
-            [에러 메시지]    triggerAd()
-                              │
-                  ┌───────────┼───────────┐
-                  │ completed  │ dismissed  │ failed
-                  ↓            ↓            ↓
-             spinRetry()  [원래 결과 유지] [에러 메시지]
+            [에러 메시지]   spinRetry()
                   │
              saveRetryResult()
                   │
@@ -43,10 +38,9 @@
 ### `src/lib/ads.ts` — AIT Bridge 추상화
 
 ```typescript
-// 개발 환경: VITE_AD_MOCK=true or import.meta.env.DEV
-export async function loadAd(): Promise<boolean>  // 광고 로드
-export async function showAd(): Promise<AdResult> // 광고 표시
-export type AdResult = 'completed' | 'dismissed' | 'failed'
+// AIT 환경: load → show 두 단계 순차 실행
+// 비 AIT 환경 (개발/브라우저): 1.5초 Mock 후 true 반환
+export async function watchAd(): Promise<boolean>  // 광고 시청 후 보상 획득 여부
 ```
 
 ### `src/features/roulette/hooks/useRewardAd.ts` — 훅

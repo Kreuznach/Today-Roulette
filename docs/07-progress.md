@@ -1,12 +1,22 @@
 # 진행 상황 추적
 
-## 현재 버전: v1.3.0
+## 현재 버전: v1.4.0
 
 > 마지막 업데이트: 2026-05-03
 
 ---
 
 ## ✅ 완료된 작업
+
+### v1.4.0 업데이트
+- [x] `src/lib/ads.ts` — 버그 수정: `loadAd()` + `showAd()` 분리 구조 → `watchAd()` 단일 함수로 통합 (Today-RPS 패턴 적용)
+  - **근본 원인**: `useRewardAd.ts`의 `prepareAd()`가 `isAdSupported()=false`이면 mock 진입 전에 에러를 반환하던 구조 결함
+  - `_isAitSupported()` 내부 전용 함수로 변경 (public API 불필요)
+  - 비 AIT 환경: 1.5초 지연 후 `true` 반환하는 Mock
+- [x] `src/features/roulette/hooks/useRewardAd.ts` — 단순화: `prepareAd()` + `triggerAd()` → `startAd()` 단일 콜백
+  - `adState` 타입 간소화: `'idle' | 'loading' | 'done' | 'error'` (불필요한 `'ready'`, `'showing'` 제거)
+- [x] `src/pages/ResultPage.tsx` — `startAd()` 기반으로 광고 플로우 단순화
+- [x] `today-roulette.ait` — 빌드 산출물 갱신 (deploymentId: 019dec56-da9d-7bce-8118-db126ad7ac88)
 
 ### v1.3.0 업데이트
 - [x] `granite.config.ts` — `defineConfig` (AIT v2.x API) 기반으로 전면 교체

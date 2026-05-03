@@ -9,7 +9,7 @@ export function ResultPage() {
   const navigate = useNavigate();
   const { todayRecord, confirmResult, spinRetry, saveRetryResult, canRetry, isFinalized } =
     useRouletteGame();
-  const { errorMessage, prepareAd, triggerAd, reset: resetAd } = useRewardAd();
+  const { errorMessage, startAd, reset: resetAd } = useRewardAd();
   const [adFlowStep, setAdFlowStep] = useState<'idle' | 'confirm' | 'loading' | 'spinning'>(
     'idle',
   );
@@ -44,16 +44,9 @@ export function ResultPage() {
 
   const handleAdRetryConfirm = async () => {
     setAdFlowStep('loading');
-    const loaded = await prepareAd();
-    if (!loaded) {
-      setAdFlowStep('idle');
-      return;
-    }
-    // 광고 표시
-    const result = await triggerAd();
-    if (result === 'completed') {
+    const rewarded = await startAd();
+    if (rewarded) {
       setAdFlowStep('spinning');
-      // 재추첨 실행
       setTimeout(() => {
         const retryResult = spinRetry();
         if (retryResult) {
@@ -63,7 +56,6 @@ export function ResultPage() {
       }, 500);
     } else {
       setAdFlowStep('idle');
-      // errorMessage는 useRewardAd 내에서 설정됨
     }
   };
 
