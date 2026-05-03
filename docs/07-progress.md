@@ -1,12 +1,20 @@
 # 진행 상황 추적
 
-## 현재 버전: v1.2.0
+## 현재 버전: v1.3.0
 
 > 마지막 업데이트: 2026-05-03
 
 ---
 
 ## ✅ 완료된 작업
+
+### v1.3.0 업데이트
+- [x] `granite.config.ts` — `defineConfig` (AIT v2.x API) 기반으로 전면 교체
+  - `@apps-in-toss/web-framework/config` 사용
+  - `brand.icon`, `web.port`, `navigationBar` 필드 추가
+- [x] `package.json` — `build:ait` 스크립트 추가 (`node_modules/.bin/ait build`)
+- [x] `today-roulette.ait` — AIT 빌드 산출물 생성 확인 (v2.4.7, RN 0.84.0 / 0.72.6)
+- [x] `docs/08-ait-build-guide.md` — AIT 빌드 가이드 문서 신규 작성
 
 ### v1.2.0 업데이트
 - [x] `public/favicon.svg` — 룰렛 테마 8섹션 컬러 SVG 파비콘 추가
@@ -71,8 +79,9 @@
 
 ### 빌드 검증
 - [x] TypeScript 타입 체크 통과 (`tsc --noEmit` 오류 없음)
-- [x] Vite 프로덕션 빌드 성공
-- [x] 출력물: `dist/` (총 gzip ~85KB, `@apps-in-toss/web-framework` 포함)
+- [x] Vite 프로덕션 빌드 성공 (`npm run build`)
+- [x] AIT 빌드 성공 (`npm run build:ait`) → `today-roulette.ait` 생성
+- [x] 출력물: `dist/` (총 gzip ~85KB), `today-roulette.ait` (~3.6MB)
 
 ### 문서
 - [x] `docs/01-overview.md` — 프로젝트 개요
@@ -81,6 +90,7 @@
 - [x] `docs/04-apps-in-toss-checklist.md` — 배포 체크리스트
 - [x] `docs/05-ad-flow.md` — 광고 재추첨 플로우
 - [x] `docs/06-future-supabase-schema.md` — v2 DB 스키마
+- [x] `docs/08-ait-build-guide.md` — AIT 빌드 가이드
 
 ---
 

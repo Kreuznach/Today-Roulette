@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
+    "build:ait": "node node_modules/@apps-in-toss/web-framework/ait.js build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit"
   },
