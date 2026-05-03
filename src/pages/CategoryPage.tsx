@@ -139,7 +139,7 @@ export function CategoryPage() {
           onClick={handleConfirm}
           style={{ background: catInfo.color, boxShadow: `0 4px 12px ${catInfo.color}40` }}
         >
-          {catInfo.label}로 룰렛 시작하기
+          '{catInfo.label}' 룰렛 시작하기
         </button>
       </div>
     </div>

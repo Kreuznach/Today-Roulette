@@ -1,12 +1,15 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRouletteGame } from '@/features/roulette/hooks/useRouletteGame';
 import { CategoryCard } from '@/features/roulette/components/CategoryCard';
 import { CATEGORIES } from '@/features/roulette/data/categories';
+import { InfoModal } from '@/components/InfoModal';
 import type { RouletteCategoryKey } from '@/features/roulette/types';
 
 export function HomePage() {
   const navigate = useNavigate();
   const { todayRecord, isFinalized, hasSelectedCategory, hasFirstResult } = useRouletteGame();
+  const [showInfo, setShowInfo] = useState(false);
 
   const handleCategorySelect = (key: RouletteCategoryKey) => {
     // 카테고리 선택 확인은 CategoryPage에서 처리
@@ -17,11 +20,21 @@ export function HomePage() {
   if (isFinalized && todayRecord) {
     return (
       <div className="page-container">
+        {showInfo && <InfoModal onClose={() => setShowInfo(false)} />}
         <div className="page-content">
           {/* 헤더 */}
-          <div style={{ marginBottom: '32px' }}>
-            <h1 className="app-title">오늘의 룰렛</h1>
-            <p className="app-subtitle">오늘 결과가 확정됐어요</p>
+          <div style={{ marginBottom: '32px', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+            <div>
+              <h1 className="app-title">오늘의 룰렛</h1>
+              <p className="app-subtitle">오늘 결과가 확정됐어요</p>
+            </div>
+            <button
+              onClick={() => setShowInfo(true)}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '22px', padding: '4px', marginTop: '2px' }}
+              aria-label="앱 정보"
+            >
+              ℹ️
+            </button>
           </div>
 
           {/* 확정 카드 */}
@@ -69,10 +82,20 @@ export function HomePage() {
     const catInfo = CATEGORIES.find((c) => c.key === todayRecord.category);
     return (
       <div className="page-container">
+        {showInfo && <InfoModal onClose={() => setShowInfo(false)} />}
         <div className="page-content">
-          <div style={{ marginBottom: '32px' }}>
-            <h1 className="app-title">오늘의 룰렛</h1>
-            <p className="app-subtitle">카테고리가 선택됐어요</p>
+          <div style={{ marginBottom: '32px', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+            <div>
+              <h1 className="app-title">오늘의 룰렛</h1>
+              <p className="app-subtitle">카테고리가 선택됐어요</p>
+            </div>
+            <button
+              onClick={() => setShowInfo(true)}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '22px', padding: '4px', marginTop: '2px' }}
+              aria-label="앱 정보"
+            >
+              ℹ️
+            </button>
           </div>
 
           <div className="card" style={{ textAlign: 'center', padding: '32px 24px', marginBottom: '16px' }}>
@@ -108,10 +131,20 @@ export function HomePage() {
   if (hasFirstResult && todayRecord) {
     return (
       <div className="page-container">
+        {showInfo && <InfoModal onClose={() => setShowInfo(false)} />}
         <div className="page-content">
-          <div style={{ marginBottom: '32px' }}>
-            <h1 className="app-title">오늘의 룰렛</h1>
-            <p className="app-subtitle">결과를 확인해보세요</p>
+          <div style={{ marginBottom: '32px', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+            <div>
+              <h1 className="app-title">오늘의 룰렛</h1>
+              <p className="app-subtitle">결과를 확인해보세요</p>
+            </div>
+            <button
+              onClick={() => setShowInfo(true)}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '22px', padding: '4px', marginTop: '2px' }}
+              aria-label="앱 정보"
+            >
+              ℹ️
+            </button>
           </div>
           <div className="card" style={{ textAlign: 'center', padding: '32px 24px', marginBottom: '16px' }}>
             <div style={{ fontSize: '40px', marginBottom: '12px' }}>🎯</div>
@@ -137,11 +170,21 @@ export function HomePage() {
   // 오늘 플레이 전 → 카테고리 선택
   return (
     <div className="page-container">
+      {showInfo && <InfoModal onClose={() => setShowInfo(false)} />}
       <div className="page-content">
         {/* 헤더 */}
-        <div style={{ marginBottom: '28px' }}>
-          <h1 className="app-title">오늘의 룰렛</h1>
-          <p className="app-subtitle">오늘 궁금한 주제를 고르고 룰렛을 돌려보세요</p>
+        <div style={{ marginBottom: '28px', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+          <div>
+            <h1 className="app-title">오늘의 룰렛</h1>
+            <p className="app-subtitle">오늘 궁금한 주제를 고르고 룰렛을 돌려보세요</p>
+          </div>
+          <button
+            onClick={() => setShowInfo(true)}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '22px', padding: '4px', marginTop: '2px' }}
+            aria-label="앱 정보"
+          >
+            ℹ️
+          </button>
         </div>
 
         {/* 안내 */}

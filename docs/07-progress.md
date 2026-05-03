@@ -1,12 +1,23 @@
 # 진행 상황 추적
 
-## 현재 버전: v1.1.0 (MVP + 룰렛 UI 개선)
+## 현재 버전: v1.2.0
 
-> 마지막 업데이트: 2026-04-27
+> 마지막 업데이트: 2026-05-03
 
 ---
 
 ## ✅ 완료된 작업
+
+### v1.2.0 업데이트
+- [x] `public/favicon.svg` — 룰렛 테마 8섹션 컬러 SVG 파비콘 추가
+- [x] `src/lib/ads.ts` — `@apps-in-toss/web-framework` GoogleAdMob SDK로 교체
+  - 구버전 `window.__AIT_BRIDGE__` 방식 제거
+  - `VITE_AD_ENV` 환경변수로 test/production/자동(Mock) 전환
+  - 프로덕션 광고 ID 하드코딩: `ait.v2.live.e5638822a9304075`
+- [x] `src/data/appInfo.json` — 앱 정보 및 업데이트 내역 데이터
+- [x] `src/components/InfoModal.tsx` — 앱 정보 바텀시트 모달 컴포넌트
+- [x] `src/pages/HomePage.tsx` — 모든 홈 상태 헤더에 ⓘ 버튼 + InfoModal 연결
+- [x] `.env.example`, `.env.local` — `VITE_AD_ENV` 기반으로 업데이트
 
 ### 룰렛 UI 개선 (v1.1.0)
 - [x] `RouletteWheel.tsx` — 세그먼트 텍스트 → 이모지 60종 교체 (`RESULT_EMOJIS` 룩업 맵)
@@ -30,7 +41,8 @@
 - [x] `src/features/roulette/utils/random.ts` — 무작위 추첨, 회전각 계산
 - [x] `src/features/roulette/utils/date.ts` — KST 날짜 유틸
 - [x] `src/features/roulette/storage/rouletteStorage.ts` — localStorage CRUD
-- [x] `src/lib/ads.ts` — AIT SDK 추상화 + Dev Mock
+- [x] `src/lib/ads.ts` — GoogleAdMob SDK 연동 (AIT 리워드 광고 + Dev Mock)
+- [x] `src/data/appInfo.json` — 앱 설명, 업데이트 내역
 
 ### 훅
 - [x] `src/features/roulette/hooks/useRouletteGame.ts` — 게임 상태 중앙 관리
@@ -41,6 +53,7 @@
 - [x] `src/features/roulette/components/RouletteWheel.tsx` — SVG 12칸 룰렛
 - [x] `src/features/roulette/components/ResultCard.tsx`
 - [x] `src/features/roulette/components/HistoryList.tsx`
+- [x] `src/components/InfoModal.tsx` — 앱 정보 바텀시트 모달
 
 ### 페이지
 - [x] `src/pages/HomePage.tsx`
@@ -59,7 +72,7 @@
 ### 빌드 검증
 - [x] TypeScript 타입 체크 통과 (`tsc --noEmit` 오류 없음)
 - [x] Vite 프로덕션 빌드 성공
-- [x] 출력물: `dist/` (총 gzip ~81KB)
+- [x] 출력물: `dist/` (총 gzip ~85KB, `@apps-in-toss/web-framework` 포함)
 
 ### 문서
 - [x] `docs/01-overview.md` — 프로젝트 개요

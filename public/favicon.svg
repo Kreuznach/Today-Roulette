@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- 외부 원 (보더) -->
+  <circle cx="32" cy="32" r="30" fill="#1a1a2e" stroke="#3182F6" stroke-width="2"/>
+
+  <!-- 룰렛 섹션 (8등분) -->
+  <!-- 섹션 1: 파랑 -->
+  <path d="M32 32 L32 4 A28 28 0 0 1 51.8 12.2 Z" fill="#3182F6"/>
+  <!-- 섹션 2: 주황 -->
+  <path d="M32 32 L51.8 12.2 A28 28 0 0 1 60 32 Z" fill="#FF8C42"/>
+  <!-- 섹션 3: 초록 -->
+  <path d="M32 32 L60 32 A28 28 0 0 1 51.8 51.8 Z" fill="#05C072"/>
+  <!-- 섹션 4: 보라 -->
+  <path d="M32 32 L51.8 51.8 A28 28 0 0 1 32 60 Z" fill="#7B61FF"/>
+  <!-- 섹션 5: 빨강 -->
+  <path d="M32 32 L32 60 A28 28 0 0 1 12.2 51.8 Z" fill="#F04452"/>
+  <!-- 섹션 6: 노랑 -->
+  <path d="M32 32 L12.2 51.8 A28 28 0 0 1 4 32 Z" fill="#FFB800"/>
+  <!-- 섹션 7: 청록 -->
+  <path d="M32 32 L4 32 A28 28 0 0 1 12.2 12.2 Z" fill="#00B8D9"/>
+  <!-- 섹션 8: 핑크 -->
+  <path d="M32 32 L12.2 12.2 A28 28 0 0 1 32 4 Z" fill="#FF6B9D"/>
+
+  <!-- 구분선 -->
+  <line x1="32" y1="32" x2="32" y2="4" stroke="#1a1a2e" stroke-width="1.5"/>
+  <line x1="32" y1="32" x2="51.8" y2="12.2" stroke="#1a1a2e" stroke-width="1.5"/>
+  <line x1="32" y1="32" x2="60" y2="32" stroke="#1a1a2e" stroke-width="1.5"/>
+  <line x1="32" y1="32" x2="51.8" y2="51.8" stroke="#1a1a2e" stroke-width="1.5"/>
+  <line x1="32" y1="32" x2="32" y2="60" stroke="#1a1a2e" stroke-width="1.5"/>
+  <line x1="32" y1="32" x2="12.2" y2="51.8" stroke="#1a1a2e" stroke-width="1.5"/>
+  <line x1="32" y1="32" x2="4" y2="32" stroke="#1a1a2e" stroke-width="1.5"/>
+  <line x1="32" y1="32" x2="12.2" y2="12.2" stroke="#1a1a2e" stroke-width="1.5"/>
+
+  <!-- 중앙 원 -->
+  <circle cx="32" cy="32" r="8" fill="#ffffff" stroke="#1a1a2e" stroke-width="1.5"/>
+  <circle cx="32" cy="32" r="4" fill="#3182F6"/>
+
+  <!-- 화살표 (포인터) -->
+  <polygon points="32,2 28,10 36,10" fill="#ffffff" stroke="#1a1a2e" stroke-width="1"/>
+</svg>
