@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import appInfo from '@/data/appInfo.json';
 
 interface InfoModalProps {
@@ -6,6 +6,27 @@ interface InfoModalProps {
 }
 
 export function InfoModal({ onClose }: InfoModalProps) {
+  const emojiClickCount = useRef(0);
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
+
+  const handleEmojiClick = () => {
+    emojiClickCount.current += 1;
+    if (emojiClickCount.current >= 10) {
+      emojiClickCount.current = 0;
+      setShowResetConfirm(true);
+    }
+  };
+
+  const handleResetConfirm = () => {
+    localStorage.clear();
+    setShowResetConfirm(false);
+    onClose();
+  };
+
+  const handleResetCancel = () => {
+    setShowResetConfirm(false);
+  };
+
   // 배경 스크롤 방지
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -73,7 +94,10 @@ export function InfoModal({ onClose }: InfoModalProps) {
               justifyContent: 'center',
               fontSize: '28px',
               flexShrink: 0,
+              cursor: 'pointer',
+              userSelect: 'none',
             }}
+            onClick={handleEmojiClick}
           >
             🎯
           </div>
@@ -175,6 +199,73 @@ export function InfoModal({ onClose }: InfoModalProps) {
           닫기
         </button>
       </div>
+
+      {/* 숨겨진 기능: localStorage 초기화 확인 다이얼로그 */}
+      {showResetConfirm && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(0,0,0,0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 2000,
+            padding: '0 24px',
+          }}
+          onClick={handleResetCancel}
+        >
+          <div
+            style={{
+              background: '#ffffff',
+              borderRadius: '16px',
+              width: '100%',
+              maxWidth: '320px',
+              padding: '28px 24px 20px',
+              textAlign: 'center',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <p
+              style={{
+                fontSize: '15px',
+                fontWeight: 700,
+                color: '#191F28',
+                marginBottom: '8px',
+                lineHeight: 1.5,
+              }}
+            >
+              숨겨진 기능
+            </p>
+            <p
+              style={{
+                fontSize: '14px',
+                color: '#4E5968',
+                lineHeight: 1.6,
+                marginBottom: '24px',
+              }}
+            >
+              Local Storage를 초기화 하시겠습니까?
+            </p>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <button
+                className="btn-ghost"
+                onClick={handleResetCancel}
+                style={{ flex: 1 }}
+              >
+                취소
+              </button>
+              <button
+                className="btn-primary"
+                onClick={handleResetConfirm}
+                style={{ flex: 1 }}
+              >
+                확인
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
