@@ -7,12 +7,9 @@ import { CATEGORY_MAP } from '@/features/roulette/data/categories';
 
 export function ResultPage() {
   const navigate = useNavigate();
-  const { todayRecord, confirmResult, spinRetry, saveRetryResult, canRetry, isFinalized } =
-    useRouletteGame();
+  const { todayRecord, confirmResult, canRetry, isFinalized } = useRouletteGame();
   const { errorMessage, startAd, reset: resetAd } = useRewardAd();
-  const [adFlowStep, setAdFlowStep] = useState<'idle' | 'confirm' | 'loading' | 'spinning'>(
-    'idle',
-  );
+  const [adFlowStep, setAdFlowStep] = useState<'idle' | 'confirm' | 'loading'>('idle');
 
   // 이미 확정되면 최종 결과 화면으로
   useEffect(() => {
@@ -46,14 +43,7 @@ export function ResultPage() {
     setAdFlowStep('loading');
     const rewarded = await startAd();
     if (rewarded) {
-      setAdFlowStep('spinning');
-      setTimeout(() => {
-        const retryResult = spinRetry();
-        if (retryResult) {
-          saveRetryResult(retryResult);
-          navigate('/final');
-        }
-      }, 500);
+      navigate('/roulette', { state: { isRetry: true } });
     } else {
       setAdFlowStep('idle');
     }
@@ -206,7 +196,7 @@ export function ResultPage() {
         )}
 
         {/* 광고 로딩/시청 중 */}
-        {(adFlowStep === 'loading' || adFlowStep === 'spinning') && (
+        {adFlowStep === 'loading' && (
           <div
             style={{
               display: 'flex',
@@ -229,9 +219,7 @@ export function ResultPage() {
               }}
             />
             <p style={{ fontSize: '14px', color: '#6B7684', margin: 0, textAlign: 'center' }}>
-              {adFlowStep === 'loading'
-                ? '광고를 불러오는 중이에요...'
-                : '잠시 후 재추첨이 시작돼요'}
+              광고를 불러오는 중이에요...
             </p>
           </div>
         )}

@@ -1,12 +1,20 @@
 # 진행 상황 추적
 
-## 현재 버전: v1.4.0
+## 현재 버전: v1.5.0
 
-> 마지막 업데이트: 2026-05-03
+> 마지막 업데이트: 2026-05-08
 
 ---
 
 ## ✅ 완료된 작업
+
+### v1.5.0 업데이트
+- [x] `src/pages/ResultPage.tsx` — 광고 시청 성공 후 `spinRetry()` 즉시 호출 제거, `/roulette?state=isRetry` 로 이동하도록 변경
+  - `adFlowStep` 타입에서 `'spinning'` 상태 제거
+- [x] `src/pages/RoulettePage.tsx` — `useLocation` 으로 `isRetry` 감지, retry 모드 처리 추가
+  - retry 모드 시 `firstResult` 가드 우회, `spinRetry()` + `saveRetryResult()` 호출 후 `/final` 이동
+  - 헤딩/안내 문구 retry 모드에 맞게 분기 표시
+- [x] `today-roulette.ait` — 빌드 산출물 갱신 (deploymentId: 019e0549-1fcb-73a3-83cb-2b18b069ce8e)
 
 ### v1.4.0 업데이트
 - [x] `src/lib/ads.ts` — 버그 수정: `loadAd()` + `showAd()` 분리 구조 → `watchAd()` 단일 함수로 통합 (Today-RPS 패턴 적용)
@@ -16,7 +24,7 @@
 - [x] `src/features/roulette/hooks/useRewardAd.ts` — 단순화: `prepareAd()` + `triggerAd()` → `startAd()` 단일 콜백
   - `adState` 타입 간소화: `'idle' | 'loading' | 'done' | 'error'` (불필요한 `'ready'`, `'showing'` 제거)
 - [x] `src/pages/ResultPage.tsx` — `startAd()` 기반으로 광고 플로우 단순화
-- [x] `today-roulette.ait` — 빌드 산출물 갱신 (deploymentId: 019dec56-da9d-7bce-8118-db126ad7ac88)
+- [x] `today-roulette.ait` — 빌드 산출물 갱신 (deploymentId: 019dec56-da9d-7bce-8118-db126ad7ac88) *(v1.5.0에서 재갱신)*
 
 ### v1.3.0 업데이트
 - [x] `granite.config.ts` — `defineConfig` (AIT v2.x API) 기반으로 전면 교체

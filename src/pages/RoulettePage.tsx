@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useRouletteGame } from '@/features/roulette/hooks/useRouletteGame';
 import { RouletteWheel } from '@/features/roulette/components/RouletteWheel';
 import { CATEGORY_MAP } from '@/features/roulette/data/categories';
@@ -7,7 +7,9 @@ import { ROULETTE_RESULTS } from '@/features/roulette/data/results';
 
 export function RoulettePage() {
   const navigate = useNavigate();
-  const { todayRecord, spinFirst, isFinalized } = useRouletteGame();
+  const location = useLocation();
+  const isRetry = (location.state as { isRetry?: boolean } | null)?.isRetry === true;
+  const { todayRecord, spinFirst, spinRetry, saveRetryResult, isFinalized } = useRouletteGame();
   const [hasSpun, setHasSpun] = useState(false);
 
   // 오늘 이미 확정된 경우
@@ -22,8 +24,8 @@ export function RoulettePage() {
     return null;
   }
 
-  // 이미 1차 결과가 있는 경우
-  if (todayRecord.firstResult) {
+  // 1차 결과가 있고 retry 모드가 아닌 경우
+  if (todayRecord.firstResult && !isRetry) {
     navigate('/result', { replace: true });
     return null;
   }
@@ -32,15 +34,24 @@ export function RoulettePage() {
   const items = ROULETTE_RESULTS[todayRecord.category];
 
   const handleSpinComplete = (_index: number) => {
-    // RouletteWheel 컴포넌트가 완료 신호를 보내면
-    // 실제 결과 계산은 spinFirst()로 처리
-    const result = spinFirst();
-    if (result) {
-      setHasSpun(true);
-      // 잠깐 대기 후 결과 화면으로 이동
-      setTimeout(() => {
-        navigate('/result');
-      }, 800);
+    setHasSpun(true);
+    if (isRetry) {
+      // 광고 후 재추첨: spinRetry()로 결과 계산 후 최종 확정
+      const retryResult = spinRetry();
+      if (retryResult) {
+        saveRetryResult(retryResult);
+        setTimeout(() => {
+          navigate('/final', { replace: true });
+        }, 800);
+      }
+    } else {
+      // 첫 번째 스핀: spinFirst()로 결과 저장 후 결과 화면으로
+      const result = spinFirst();
+      if (result) {
+        setTimeout(() => {
+          navigate('/result');
+        }, 800);
+      }
     }
   };
 
@@ -76,7 +87,7 @@ export function RoulettePage() {
               margin: 0,
             }}
           >
-            룰렛을 돌려보세요
+            {isRetry ? '한 번 더 돌려보세요' : '룰렛을 돌려보세요'}
           </h2>
         </div>
 
@@ -103,7 +114,9 @@ export function RoulettePage() {
         >
           {hasSpun
             ? '결과를 계산하는 중이에요...'
-            : '버튼을 누르면 오늘의 결과가 정해져요\n하루에 한 번만 돌릴 수 있어요'}
+            : isRetry
+              ? '광고 시청 완료! 다시 돌려서 새로운 결과를 받아보세요'
+              : '버튼을 누르면 오늘의 결과가 정해져요\n하루에 한 번만 돌릴 수 있어요'}
         </p>
       </div>
     </div>
